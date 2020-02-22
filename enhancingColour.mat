@@ -1,0 +1,83 @@
+Enhancing Multispectral Color Composite Images
+
+This is how to read in an image file:
+
+I = imread('filename.jpg')
+
+This example shows some basic image composition and enhancement:
+
+truecolor = multibandread(...)
+
+The truecolor composite has very little contrast and the colors are unbalanced.
+
+Step 1: Look at the truecolor composite
+
+figure
+imshow(truecolor);
+title('Truecolor Composite (Un-enhanced)')
+text(size(truecolor,2), size(truecolor,1)+15,...more information)
+
+Step 2: Use Histograms to Explore Un-Enhanced Truecolor Composite
+
+figure
+imhist(truecolor(:,:,1))
+title('Histogram of the Red Band(Band 3)')
+
+^This will show a histogram of the data.
+
+Step 3: Use Correlation to Explore Un-enhanced Truecolor Composite
+
+r = truecolor(:,:,1);
+g = truecolor(:,:,2);
+b = truecolor(:,:,3);
+figure
+plot3(r(:),g(:),b(:),'.')
+grid('on')
+xlabel('Red (Band 3)')
+ylabel('Green (Band 2)')
+zlabel('Blue (Band 1)')
+title('Scatterplot of the Visible Bands')
+
+^This will plot the red blue and green on a three dimensional graph
+
+Step 4: Enhance Truecolor Composite with a Contrast Stretch
+
+stretched_truecolor = imadjust(truecolor,stretchlim(truecolor));
+figure
+imshow(stretched_truecolor)
+title('Truecolor Composite after Contrast Stretch')
+
+^This will apply a linear contrast stretch
+
+Step 5: Check Histogram Following the Contrast Stretch
+
+figure
+imhist(stretched_truecolor(:,:,1))
+title('Histogram of Red Band (Band 3) after Contrast Stretch')
+
+^This will show a histogram of what happened with the data
+
+Step 6: Enhance Truecolor Composite witha Decorrelation Stretch
+
+decorrstretched_truecolor = decorrstretch(truecolor, 'Tol', 0.01);
+figure
+imshow(decorrstretched_truecolor)
+title('Truecolor Composite after Decorrelation Stretch')
+
+^This will add more contrast
+
+Step 7: Check Correlation Following the Decorrelation Stretch
+
+r = decorrstretched_truecolor(:,:,1);
+g = decorrstretched_truecolor(:,:,2);
+b = decorrstretched_truecolor(:,:,3);
+figure
+plot3(r(:),g(:),b(:),'.')
+grid('on')
+xlabel('Red (Band 3)')
+ylabel('Green (Band 2)')
+zlabel('Blue (Band 1)')
+title('Scatterplot of the Visible Bands after Decorrelation Stretch')
+
+^This will show a 3D graph with lots of dispersion 
+
