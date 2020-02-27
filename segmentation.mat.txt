@@ -1,0 +1,16 @@
+Read in an image
+
+I = imread('filename.jpg');
+imshow(I);
+
+Convert to grayscale image
+
+Igray = rgb2gray(I);
+imshow(Igray);
+
+Problem: illumination doesn't allow for easy segmentation
+
+level = 0.67;
+Ithresh = im2bw(Igray,level);
+imshowpair(I, Ithresh, 'montage');
+
